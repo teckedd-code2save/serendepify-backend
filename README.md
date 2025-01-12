@@ -43,6 +43,7 @@ $ pnpm run test:cov
 ### Prisma Set
 - Generate Prisma client
 - Update Schema and define models
+- Migrate db `npx prisma migrate dev --name init`
 
 ### Seed data
 - Create seeding file at the root `touch prisma/seed.ts`

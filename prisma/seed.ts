@@ -10,7 +10,7 @@ async function main() {
       name: 'John Doe',
       title: 'Software Engineer',
       password: 'password123',
-      type: 'Employee',
+      type: 'Executive',
     },
   });
 
@@ -19,8 +19,8 @@ async function main() {
       email: 'jane.smith@example.com',
       name: 'Jane Smith',
       title: 'Marketing Specialist',
-      password: 'password123',
-      type: 'Employee',
+      password: 'password124',
+      type: 'Executive',
     },
   });
 
@@ -28,7 +28,7 @@ async function main() {
     data: {
       email: 'customer.one@example.com',
       name: 'Jeph Bezos',
-      password: 'password123',
+      password: 'password125',
       type: 'Customer',
     },
   });

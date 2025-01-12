@@ -55,7 +55,8 @@ model Product {
 }
 
 enum UserType {
-  Employee
+  Executive
+  Manager
   Customer
   Applicant
 }
