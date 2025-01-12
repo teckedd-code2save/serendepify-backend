@@ -34,6 +34,18 @@ $ pnpm run test:e2e
 $ pnpm run test:cov
 ```
 
+## Development
+### Prisma Set
+- Generate Prisma client
+- Update Schema and define models
+
+### Seed data
+- Create seeding file at the root `touch prisma/seed.ts`
+- Add new script entry to package.json `"scripts": {"seed": "ts-node prisma/seed.ts"}`
+- `npm run seed` or `pnpm run seed` if pnpm is your package manager
+- `npx prisma studio`
+
+
 ## Deployment
 
 When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
