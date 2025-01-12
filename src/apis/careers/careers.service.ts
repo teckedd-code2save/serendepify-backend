@@ -1,26 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCareerDto } from './dto/create-career.dto';
 import { UpdateCareerDto } from './dto/update-career.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+
 
 @Injectable()
 export class CareersService {
+  constructor(private readonly prisma: PrismaService) {}
+  
   create(createCareerDto: CreateCareerDto) {
-    return 'This action adds a new career';
+    return this.prisma.career.create({
+    data: createCareerDto})
   }
 
   findAll() {
-    return `This action returns all careers`;
+    return this.prisma.career.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} career`;
+  findOne(id: string) {
+    return this.prisma.career.findUnique({
+      where: {id: id}})
   }
 
-  update(id: number, updateCareerDto: UpdateCareerDto) {
-    return `This action updates a #${id} career`;
+  update(id: string, updateCareerDto: UpdateCareerDto) {
+    return this.prisma.career.update({
+      where: {id: id},
+      data: updateCareerDto});
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} career`;
+  remove(id: string) {
+    return this.prisma.career.delete({
+      where: {id: id}});
   }
 }
