@@ -1,7 +1,7 @@
 
 ## Description
-
 Backend project for autonomy software solutions company website
+
 ## Project setup
 
 ```bash
@@ -35,6 +35,11 @@ $ pnpm run test:cov
 ```
 
 ## Development
+### Quickly Scaffold controllers,services and modules
+- `nest g module name`
+- `nest g service name`
+- `nest g resource name`
+- `nest g controller name`
 ### Prisma Set
 - Generate Prisma client
 - Update Schema and define models
@@ -45,12 +50,14 @@ $ pnpm run test:cov
 - `npm run seed` or `pnpm run seed` if pnpm is your package manager
 - `npx prisma studio`
 
-
+### Api Documentation
+- Install Swagger
+- `pnpm install --save @nestjs/swagger`
 ## Deployment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+[deployment documentation](https://docs.nestjs.com/deployment) 
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+ check out [Mau](https://mau.nestjs.com)
 
 ```bash
 $ pnpm install -g mau

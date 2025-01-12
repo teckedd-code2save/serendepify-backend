@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { CareersModule } from './apis/careers/careers.module';
 import { ChatModule } from './apis/chat/chat.module';
 import { PeopleModule } from './apis/people/people.module';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { PeopleModule } from './apis/people/people.module';
   }),
     CareersModule,
     ChatModule,
-    PeopleModule],
+    PeopleModule,
+    PrismaModule],
   controllers: [AppController],
   providers: [AppService],
 })
