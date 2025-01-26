@@ -3,7 +3,7 @@ import { CareersService } from './careers.service';
 import { CreateCareerDto } from './dto/create-career.dto';
 import { UpdateCareerDto } from './dto/update-career.dto';
 
-@Controller('careers')
+@Controller('algorizz/careers')
 export class CareersController {
   constructor(private readonly careersService: CareersService) {}
 
