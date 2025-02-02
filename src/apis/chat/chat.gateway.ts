@@ -1,34 +1,50 @@
-import { WebSocketGateway, SubscribeMessage, MessageBody } from '@nestjs/websockets';
+import { WebSocketGateway, WebSocketServer, SubscribeMessage, MessageBody } from '@nestjs/websockets';
+import { Server } from 'socket.io'; // Correct import
 import { ChatService } from './chat.service';
 import { CreateChatDto } from './dto/create-chat.dto';
 import { UpdateChatDto } from './dto/update-chat.dto';
 
-@WebSocketGateway()
+@WebSocketGateway({
+  cors: {
+    origin: '*', // Adjust CORS as needed
+  },
+})
 export class ChatGateway {
+  @WebSocketServer() // Inject the WebSocket server instance
+  server: Server;
+
   constructor(private readonly chatService: ChatService) {}
 
   @SubscribeMessage('createChat')
-  create(@MessageBody() createChatDto: CreateChatDto) {
-    return this.chatService.create(createChatDto);
+  async handleMessage(@MessageBody() createChatDto: CreateChatDto): Promise<void> {
+    // Save the message to the database
+    const newChat = await this.chatService.create(createChatDto);
+
+    // Broadcast the message to all connected clients
+    this.server.emit('chatCreated', newChat);
   }
 
   @SubscribeMessage('findAllChat')
-  findAll() {
-    return this.chatService.findAll();
+  async findAll(): Promise<void> {
+    const chats = await this.chatService.findAll();
+    this.server.emit('allChats', chats); // Emit all chats to the client
   }
 
   @SubscribeMessage('findOneChat')
-  findOne(@MessageBody() id: number) {
-    return this.chatService.findOne(id);
+  async findOne(@MessageBody() id: string): Promise<void> {
+    const chat = await this.chatService.findOne(id);
+    this.server.emit('singleChat', chat); // Emit the single chat to the client
   }
 
   @SubscribeMessage('updateChat')
-  update(@MessageBody() updateChatDto: UpdateChatDto) {
-    return this.chatService.update(updateChatDto.id, updateChatDto);
+  async update(@MessageBody() updateChatDto: UpdateChatDto): Promise<void> {
+    const updatedChat = await this.chatService.update(updateChatDto.id, updateChatDto);
+    this.server.emit('chatUpdated', updatedChat); // Emit the updated chat to the client
   }
 
   @SubscribeMessage('removeChat')
-  remove(@MessageBody() id: number) {
-    return this.chatService.remove(id);
+  async remove(@MessageBody() id: string): Promise<void> {
+    const removedChat = await this.chatService.remove(id);
+    this.server.emit('chatRemoved', removedChat); // Emit the removed chat to the client
   }
 }

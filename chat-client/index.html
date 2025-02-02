@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebSocket Chat Test</title>
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js" integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      #output {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+        height: 200px;
+        overflow-y: auto;
+      }
+      button {
+        margin: 5px;
+        padding: 10px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>WebSocket Chat Test</h1>
+    <button onclick="createChat()">Create Chat</button>
+    <button onclick="findAllChats()">Get All Chats</button>
+    <button onclick="updateChat()">Update Chat</button>
+    <button onclick="removeChat()">Remove Chat</button>
+
+    <div id="output">
+      <p>Chatty</p>
+    </div>
+
+    <script>
+      const socket = io('http://localhost:3000');
+
+      // Helper function to log messages to the output div
+      function logMessage(message) {
+        const output = document.getElementById('output');
+        const p = document.createElement('p');
+        p.textContent = message;
+        output.appendChild(p);
+        output.scrollTop = output.scrollHeight; // Auto-scroll to the bottom
+      }
+
+      // Event: When connected to the server
+      socket.on('connect', () => {
+        logMessage('Connected to the WebSocket server');
+      });
+
+      // Event: When a new chat is created
+      socket.on('chatCreated', (chat) => {
+        logMessage(`New chat created: ${JSON.stringify(chat)}`);
+      });
+
+      // Event: When all chats are received
+      socket.on('allChats', (chats) => {
+        logMessage(`All chats: ${JSON.stringify(chats)}`);
+      });
+
+      // Event: When a chat is updated
+      socket.on('chatUpdated', (chat) => {
+        logMessage(`Chat updated: ${JSON.stringify(chat)}`);
+      });
+
+      // Event: When a chat is removed
+      socket.on('chatRemoved', (id) => {
+        logMessage(`Chat removed: ${id}`);
+      });
+
+      // Function: Create a new chat
+      function createChat() {
+        const chatData = {
+          message: 'Hello, world!',
+          senderId: 'Edward',
+          receiverId: 'all',
+        };
+        socket.emit('createChat', chatData);
+        logMessage(`Creating chat: ${JSON.stringify(chatData)}`);
+      }
+
+      // Function: Get all chats
+      function findAllChats() {
+        socket.emit('findAllChat');
+        logMessage('Fetching all chats...');
+      }
+
+      // Function: Update a chat (replace 'chatId123' with a valid ID)
+      function updateChat() {
+        const updateData = {
+          id: 'chatId123', // Replace with a valid chat ID
+          message: 'Updated message',
+        };
+        socket.emit('updateChat', updateData);
+        logMessage(`Updating chat: ${JSON.stringify(updateData)}`);
+      }
+
+      // Function: Remove a chat (replace 'chatId123' with a valid ID)
+      function removeChat() {
+        const chatId = 'chatId123'; // Replace with a valid chat ID
+        socket.emit('removeChat', chatId);
+        logMessage(`Removing chat: ${chatId}`);
+      }
+    </script>
+  </body>
+</html>
