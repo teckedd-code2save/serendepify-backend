@@ -5,7 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 3001;
 
   const config = new DocumentBuilder()
   .setTitle('Algorizz Web API')

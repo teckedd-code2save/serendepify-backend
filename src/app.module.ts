@@ -6,6 +6,7 @@ import { CareersModule } from './apis/careers/careers.module';
 import { ChatModule } from './apis/chat/chat.module';
 import { PeopleModule } from './apis/people/people.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { ProductsModule } from './apis/products/products.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { PrismaModule } from './prisma/prisma.module';
     envFilePath: '.env', 
   }),
     CareersModule,
+    ProductsModule,
     ChatModule,
     PeopleModule,
     PrismaModule],
