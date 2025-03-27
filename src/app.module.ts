@@ -7,6 +7,7 @@ import { ChatModule } from './apis/chat/chat.module';
 import { PeopleModule } from './apis/people/people.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ProductsModule } from './apis/products/products.module';
+import { AuthModule } from './apis/auth/auth.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { ProductsModule } from './apis/products/products.module';
     ProductsModule,
     ChatModule,
     PeopleModule,
-    PrismaModule],
+    PrismaModule,
+    AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
