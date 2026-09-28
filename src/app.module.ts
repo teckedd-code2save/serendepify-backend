@@ -8,19 +8,22 @@ import { PeopleModule } from './apis/people/people.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ProductsModule } from './apis/products/products.module';
 import { AuthModule } from './apis/auth/auth.module';
+import { CapabilitiesModule } from './apis/capabilities/capabilities.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-    isGlobal: true, 
-    envFilePath: '.env', 
-  }),
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
     CareersModule,
     ProductsModule,
     ChatModule,
     PeopleModule,
     PrismaModule,
-    AuthModule],
+    AuthModule,
+    CapabilitiesModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
